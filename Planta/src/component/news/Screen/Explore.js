@@ -59,7 +59,7 @@ const Explore = (props) => {
       <View >
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Detail', { newsId: _id })
+            navigation.navigate('ProductInfo', { productID: _id })
           }}
         >
           <View style={styles.container_title}>

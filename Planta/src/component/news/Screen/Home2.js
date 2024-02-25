@@ -7,7 +7,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { getNews, getPlanPost } from '../NewHTTP';
 
 const Home2 = (props) => {
-  const {navigation} = props;
+  const { navigation } = props;
   const [products, setProducts] = useState([]);
   const [accessory, setAccessory] = useState([]);
   const [news, setNews] = useState([]);

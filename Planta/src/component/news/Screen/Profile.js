@@ -35,7 +35,10 @@ const Profile = (props) => {
         <TouchableOpacity style = {styles.container_txt}>
         <Text style = {styles.txt}>Chỉnh sửa thông tin</Text>
         </TouchableOpacity>
-        <TouchableOpacity style = {styles.container_txt}>
+        <TouchableOpacity style = {styles.container_txt}
+         onPress={() => {
+          navigation.navigate('Planthandbook')
+        }}>
         <Text style = {styles.txt}>Cẩm nang trồng cây</Text>
         </TouchableOpacity>
 

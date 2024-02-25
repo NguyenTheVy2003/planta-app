@@ -19,6 +19,7 @@ import Home2 from './Screen/Home2';
 import DemoRedux from './Screen/DemoRedux';
 import ProductInfo from './Screen/ProductInfo';
 import MyCart from './Screen/MyCart';
+import Planthandbook from './Screen/Planthandbook';
 const Stack = createNativeStackNavigator()
 const Bottom = createMaterialBottomTabNavigator()
 const HomeStack = () => {
@@ -38,6 +39,7 @@ const HomeStack = () => {
        <Stack.Screen name='Detail_PlantaPost' component={Detail_PlantaPost}></Stack.Screen>
        <Stack.Screen name='CareAccessorie' component={CareAccessorie}></Stack.Screen>
        <Stack.Screen name='Detail_CareAccessorie' component={Detail_CareAccessorie}></Stack.Screen>
+       <Stack.Screen name='Planthandbook' component={Planthandbook}></Stack.Screen>
     </Stack.Navigator>
   )
 }
