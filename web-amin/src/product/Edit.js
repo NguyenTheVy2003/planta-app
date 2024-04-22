@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import swal from 'sweetalert';
 import { useParams } from 'react-router-dom';
 import AxiosInstance from '../helper/AxiosInstance';
-import HeaderProduct from '../layout/HeaderProduct';
+import HeaderProduct from './HeaderProduct';
 
 const Edit = (props) => {
 

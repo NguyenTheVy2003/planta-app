@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AxiosInstance from '../helper/AxiosInstance';
 import swal from 'sweetalert';
-import HeaderProduct from '../layout/HeaderProduct';
+import HeaderProduct from './HeaderProduct';
+
 
 const List = (props) => {
   const {setUser} = props;
@@ -19,7 +20,8 @@ const List = (props) => {
     fetchProducts();
   }, []);
 
-  const logOut = () =>{setUser(null)}
+  const logOut = () =>{setUser(undefined)}
+  console.log(setUser);
   const handleDelete = async (id) => {
     swal({
       title: "Xác nhận?",
@@ -54,7 +56,7 @@ const List = (props) => {
 
     <div>
       <HeaderProduct/>
-      {/* <a href={logOut} onClick={logOut} class="btn btn-success m-1 ">Đăng Xuất</a> */}
+      <a onClick={logOut} class="btn btn-success m-1 ">Đăng Xuất</a>
       <div className='container'>
       <div className=' m-4'>
         <div class="col-10  "><h2 className='text-primary'>List Product    <a href={'http://localhost:3000/Add'} class="btn btn-success m-1 ">Add News</a></h2></div>

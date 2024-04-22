@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 import AxiosInstance from '../helper/AxiosInstance';
 import '../product/Add.css';
 import swal from 'sweetalert';
-import HeaderProduct from '../layout/HeaderProduct';
+import HeaderProduct from './HeaderProduct';
 
 const Add = (props) => {
+    const {setUser} = props;
+    const logOut = () =>{setUser(null)}
+    console.log(setUser);
+
 
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
@@ -94,6 +98,7 @@ const Add = (props) => {
     return (
 
         <div>
+           
            <HeaderProduct/>
             <form className='container'>
                 <div className="mb-3 mt-3">

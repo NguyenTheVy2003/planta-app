@@ -7,6 +7,8 @@ import List from './product/List'
 import ListCategory from './category/ListCategory';
 import Verify from './user/Verify';
 import ResetPassword from './user/ResetPass';
+import HeaderCategory from './category/HeaderCategory';
+import HeaderProduct from './product/HeaderProduct';
 import React, { useState }  from 'react';
 import {
   BrowserRouter as Router , Routes, Route, 
@@ -44,7 +46,7 @@ function App() {
     return <Outlet />
   }
 
-   // các trang không cần login
+   // các trang cần login
    const PrivateRoute = () => {
     if(!user){
       return <Navigate to="/Login"/> // chưa login thì cho vào trang login
@@ -64,11 +66,14 @@ function App() {
           </Route>
           <Route element={<PrivateRoute />}>
             <Route path="/" element={<List setUser={saveUserInfoToLocalStorage}/>}/>
+            <Route path="/HeaderProduct" element={<HeaderProduct setUser={saveUserInfoToLocalStorage}/>}/>
             <Route path="/add" element={<Add />} />
             <Route path="/edit/:id" element={<Edit />} />
           </Route>
+         
           <Route element={<PrivateRoute />}>
-            <Route path="/category" element={<ListCategory />} />
+            <Route path="/category" element={<ListCategory setUser={saveUserInfoToLocalStorage}/>} />
+            <Route path="/category/HeaderCategory" element={<HeaderCategory setUser={saveUserInfoToLocalStorage}/>}/>
             <Route path="/category/add" element={<AddCategory />} />
             <Route path="/category/edit/:id" element={<EditCategory />} />
           </Route>

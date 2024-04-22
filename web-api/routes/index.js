@@ -18,7 +18,7 @@ router.post('/upload-file', [upload.single('image')], (req, res, next) => {
         // cmd ----> ipconfig ---> ipv4: 192.168..
         // 10.82.26.77
         console.log(req.file);
-        const path =  "http://192.168.1.12:8686/images/" + req.file.filename;
+        const path =  "http://192.168.1.115:8686/images/" + req.file.filename;
         return res.json({ path: path})
     }
     else {

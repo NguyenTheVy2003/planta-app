@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AxiosInstance from '../helper/AxiosInstance';
 import swal from 'sweetalert';
-import HeaderCategory from '../layout/HeaderCategory';
+import HeaderCategory from './HeaderCategory';
 
 
 const AddCategory = (props) => {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AxiosInstance from '../helper/AxiosInstance';
 import swal from 'sweetalert';
-import HeaderCategory from '../layout/HeaderCategory';
+import HeaderCategory from './HeaderCategory';
 
 const ListCategory = (props) => {
   const [category, setCategory] = useState([]);
@@ -55,19 +55,19 @@ const ListCategory = (props) => {
       <HeaderCategory />
       <div>
         <div className='container py-3'>
-          <div class="row">
-            <div class="col-10"><h2 className='text-primary'>Danh mục hoa   <a href={'http://localhost:3000/category/add'} class="btn btn-success m-1 ">Add News</a></h2></div>
-            <div class="input-group rounded">
-              <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-              <span class="input-group-text border-0" id="search-addon">
+          <div className="row">
+            <div className="col-10"><h2 className='text-primary'>Danh mục hoa   <a href={'http://localhost:3000/category/add'} className="btn btn-success m-1 ">Add News</a></h2></div>
+            <div className="input-group rounded">
+              <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+              <span className="input-group-text border-0" id="search-addon">
                 <button>
-                  <img src="ic_search.png" width={30} height={30} class="fas fa-search"></img>
+                  <img src="ic_search.png" width={30} height={30} className="fas fa-search"></img>
                 </button>
               </span>
             </div>
           </div>
-          <table class="table table-striped  mt-3">
-            <thead class="table-dark">
+          <table className="table table-striped  mt-3">
+            <thead className="table-dark">
               <tr>
                 <th scope="col">STT</th>
                 <th scope="col" >Name</th>
@@ -81,8 +81,8 @@ const ListCategory = (props) => {
                   <th>{index + 1}</th>
                   <th>{item.name}</th>
                   <th style={{ textAlign: 'center' }}>
-                    <a href={`/category/edit/${item._id}`} class="btn btn-success" role="button">Edit</a>
-                    <button href="#" type='btn_Delete' class="btn btn-danger" onClick={() => handleDelete(`${item._id}`)}>Delete</button>
+                    <a href={`/category/edit/${item._id}`} className="btn btn-success" role="button">Edit</a>
+                    <button href="#" type='btn_Delete' className="btn btn-danger" onClick={() => handleDelete(`${item._id}`)}>Delete</button>
                   </th>
                 </tr>
               ))}
