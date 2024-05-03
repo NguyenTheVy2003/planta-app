@@ -56,11 +56,11 @@ app.use('/products',productsRouter);
 // http://localhost:8686/categories
 app.use('/categories',categoriesRouter);
 
-// http://localhost:8686/products
+// http://localhost:8686/
 app.use('/productsPlantPost',productsPlantPostRouter);
 
 
-// http://localhost:8686/products
+// http://localhost:8686/
 app.use('/careAccessories',careAccessorieRouter);
 
 // kết thúc
