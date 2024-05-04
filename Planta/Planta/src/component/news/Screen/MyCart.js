@@ -56,10 +56,10 @@ const MyCart = (props) => {
     // lấy tin
     const fetchData = async () => {
       try {
+        
         const response = await getNews();
         setNews(response);
         console.log(news);
-
       } catch (error) {
         console.log(error);
         throw error;
