@@ -1,11 +1,20 @@
-import { Image, StyleSheet, Text, View, KeyboardAvoidingView, ScrollView, FlatList, Dimensions, TouchableOpacity, ActivityIndicator } from 'react-native'
-import React, { useState, useEffect } from 'react'
-import { getCategory, getNews, getPlanPost, getCareAccessories } from '../NewHTTP';
+import React, {useEffect, useState} from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {getCareAccessories, getNews, getPlanPost} from '../NewHTTP';
 
-const Home = (props) => {
-
+const Home = props => {
   const [selectedId, setSelectedId] = useState(1);
-  const { navigation } = props;
+  const {navigation} = props;
   const [isLoading, setisLoading] = useState(false);
   const [news, setNews] = useState([]);
   const [plantPost, setPlantPost] = useState([]);
@@ -31,9 +40,9 @@ const Home = (props) => {
         console.log(error);
         throw error;
       }
-    }
+    };
     fetchData();
-  }, [])
+  }, []);
 
   useEffect(() => {
     // lấy tin
@@ -47,9 +56,9 @@ const Home = (props) => {
         console.log(error);
         throw error;
       }
-    }
+    };
     fetchData();
-  }, [])
+  }, []);
 
   useEffect(() => {
     // lấy tin
@@ -63,23 +72,20 @@ const Home = (props) => {
         console.log(error);
         throw error;
       }
-    }
+    };
     fetchData();
-  }, [])
+  }, []);
 
-
-  const renderItem = ({ item }) => {
-    const { _id, name, price, description, image } = item;
+  const renderItem = ({item}) => {
+    const {_id, name, price, description, image} = item;
     return (
-
-      <View >
+      <View>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Detail', { newsId: _id })
-          }}
-        >
+            navigation.navigate('Detail', {newsId: _id});
+          }}>
           <View style={styles.container_title}>
-            <Image style={styles.img} source={{ uri: image }} />
+            <Image style={styles.img} source={{uri: image}} />
             <View style={styles.container_title_content}>
               <Text style={styles.txt_title_name}>{name}</Text>
               <Text style={styles.txt_title_description}>{description}</Text>
@@ -88,8 +94,8 @@ const Home = (props) => {
           </View>
         </TouchableOpacity>
       </View>
-    )
-  }
+    );
+  };
 
   const PlantaProduct = () => {
     return (
@@ -97,44 +103,47 @@ const Home = (props) => {
         <View style={styles.container_txt_category}>
           <Text style={styles.txt_categories_caytrong}>Cây trồng</Text>
         </View>
-        {
-          isLoading == true ? (
-            <View style={styles.container_isloading}>
-              <ActivityIndicator size='large' color='#fff00' />
-              <Text>Loading...</Text>
-            </View>
-          ) : (<FlatList
-
+        {isLoading == true ? (
+          <View style={styles.container_isloading}>
+            <ActivityIndicator size="large" color="#fff00" />
+            <Text>Loading...</Text>
+          </View>
+        ) : (
+          <FlatList
             data={news}
             numColumns={2}
             renderItem={renderItem}
-            keyExtractor={(item) => item._id}
+            keyExtractor={item => item._id}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            columnWrapperStyle={{ justifyContent: 'space-between', alignItems: 'flex-start', gap: 15, paddingStart: 24, paddingEnd: 24, }}
+            columnWrapperStyle={{
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              gap: 15,
+              paddingStart: 24,
+              paddingEnd: 24,
+            }}
           />
-          )}
+        )}
         <TouchableOpacity onPress={() => props.navigation.navigate('Category')}>
           <View style={styles.container_xemthem}>
             <Text style={styles.txt_xemthem}>Xem thêm Cây trồng</Text>
           </View>
         </TouchableOpacity>
       </View>
-    )
-  }
+    );
+  };
 
-  const renderItemPlantPost = ({ item }) => {
-    const { _id, name, price, image } = item;
+  const renderItemPlantPost = ({item}) => {
+    const {_id, name, price, image} = item;
     return (
-
-      <View >
+      <View>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Detail_PlantaPost', { newsId: _id })
-          }}
-        >
+            navigation.navigate('Detail_PlantaPost', {newsId: _id});
+          }}>
           <View style={styles.container_title}>
-            <Image style={styles.img} source={{ uri: image }} />
+            <Image style={styles.img} source={{uri: image}} />
             <View style={styles.container_title_content}>
               <Text style={styles.txt_title_name}>{name}</Text>
               {/* <Text style={styles.txt_title_description}>{origin}</Text> */}
@@ -143,8 +152,8 @@ const Home = (props) => {
           </View>
         </TouchableOpacity>
       </View>
-    )
-  }
+    );
+  };
 
   const PlantPost = () => {
     return (
@@ -152,47 +161,48 @@ const Home = (props) => {
         <View style={styles.container_txt_category}>
           <Text style={styles.txt_categories_caytrong}>Chậu cây trồng</Text>
         </View>
-        {
-          isLoading == true ? (
-            <View style={styles.container_isloading}>
-              <ActivityIndicator size='large' color='#fff00' />
-              <Text>Loading...</Text>
-            </View>
-          ) : (<FlatList
-
+        {isLoading == true ? (
+          <View style={styles.container_isloading}>
+            <ActivityIndicator size="large" color="#fff00" />
+            <Text>Loading...</Text>
+          </View>
+        ) : (
+          <FlatList
             data={plantPost}
             numColumns={2}
             renderItem={renderItemPlantPost}
-            keyExtractor={(item) => item._id}
+            keyExtractor={item => item._id}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            columnWrapperStyle={{ justifyContent: 'space-between', alignItems: 'flex-start', gap: 15, paddingStart: 24, paddingEnd: 24, }}
+            columnWrapperStyle={{
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              gap: 15,
+              paddingStart: 24,
+              paddingEnd: 24,
+            }}
           />
-          )}
-        <TouchableOpacity onPress={() => props.navigation.navigate('PlantPost')}>
+        )}
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('PlantPost')}>
           <View style={styles.container_xemthem}>
             <Text style={styles.txt_xemthem}>Xem thêm chậu Cây trồng</Text>
           </View>
         </TouchableOpacity>
-
-
-
       </View>
-    )
-  }
+    );
+  };
 
-  const renderItemCareAccessories = ({ item }) => {
-    const { _id, name, price, image } = item;
+  const renderItemCareAccessories = ({item}) => {
+    const {_id, name, price, image} = item;
     return (
-
-      <View >
+      <View>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Detail_CareAccessorie', { newsId: _id })
-          }}
-        >
+            navigation.navigate('Detail_CareAccessorie', {newsId: _id});
+          }}>
           <View style={styles.container_title}>
-            <Image style={styles.img} source={{ uri: image }} />
+            <Image style={styles.img} source={{uri: image}} />
             <View style={styles.container_title_content}>
               <Text style={styles.txt_title_name}>{name}</Text>
               {/* <Text style={styles.txt_title_description}>{origin}</Text> */}
@@ -201,108 +211,138 @@ const Home = (props) => {
           </View>
         </TouchableOpacity>
       </View>
-    )
-  }
+    );
+  };
 
   const CareAccessories = () => {
     return (
       <View>
         <View style={styles.container_txt_category}>
-          <Text style={styles.txt_categories_caytrong}>Phụ kiện chăm sóc cây trồng</Text>
+          <Text style={styles.txt_categories_caytrong}>
+            Phụ kiện chăm sóc cây trồng
+          </Text>
         </View>
-        {
-          isLoading == true ? (
-            <View style={styles.container_isloading}>
-              <ActivityIndicator size='large' color='#fff00' />
-              <Text>Loading...</Text>
-            </View>
-          ) : (<FlatList
-
+        {isLoading == true ? (
+          <View style={styles.container_isloading}>
+            <ActivityIndicator size="large" color="#fff00" />
+            <Text>Loading...</Text>
+          </View>
+        ) : (
+          <FlatList
             data={careAccessories}
             numColumns={2}
             renderItem={renderItemCareAccessories}
-            keyExtractor={(item) => item._id}
+            keyExtractor={item => item._id}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            columnWrapperStyle={{ justifyContent: 'space-between', alignItems: 'flex-start', gap: 15, paddingStart: 24, paddingEnd: 24, }}
+            columnWrapperStyle={{
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              gap: 15,
+              paddingStart: 24,
+              paddingEnd: 24,
+            }}
           />
-          )}
-        <TouchableOpacity onPress={() => props.navigation.navigate('CareAccessorie')}>
+        )}
+        <TouchableOpacity
+          onPress={() => props.navigation.navigate('CareAccessorie')}>
           <View style={styles.container_xemthem}>
             <Text style={styles.txt_xemthem}>Xem thêm phụ kiện cây trồng</Text>
           </View>
         </TouchableOpacity>
       </View>
-    )
-  }
+    );
+  };
   return (
-    <KeyboardAvoidingView style={styles.container}
-    >
+    <KeyboardAvoidingView style={styles.container}>
       <ScrollView
         showsVerticalScrollIndicator={false} // thanh cuộn
       >
         <View style={styles.header}>
-          <View style={{ paddingStart: 25, paddingTop: 31, paddingEnd: 25, }}>
-            <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-              <Text style={styles.txt_planta}>Planta - toả sáng không gian nhà bạn</Text>
-              <View style={{
-                paddingTop: 14,
-                paddingStart: 11,
-                paddingBottom: 8,
-                paddingEnd: 13,
-                display: 'inline-flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: 99999,
-                backgroundColor: '#FFF'
-              }}>
-                <TouchableOpacity onPress={() => props.navigation.navigate('Shopping')}>
-                  <Image style={styles.ic_shopping} source={require('../../../image/ic_shopping.png')} />
+          <View style={{paddingStart: 25, paddingTop: 31, paddingEnd: 25}}>
+            <View
+              style={{justifyContent: 'space-between', flexDirection: 'row'}}>
+              <Text style={styles.txt_planta}>
+                Planta - toả sáng không gian nhà bạn
+              </Text>
+              <View
+                style={{
+                  paddingTop: 14,
+                  paddingStart: 11,
+                  paddingBottom: 8,
+                  paddingEnd: 13,
+                  display: 'inline-flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 99999,
+                  backgroundColor: '#FFF',
+                }}>
+                <TouchableOpacity
+                  onPress={() => props.navigation.navigate('Shopping')}>
+                  <Image
+                    style={styles.ic_shopping}
+                    source={require('../../../image/ic_shopping.png')}
+                  />
                 </TouchableOpacity>
-
               </View>
             </View>
-            <View style={{ width: 153, height: 24, marginTop: 7, flexShrink: 0, flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View
+              style={{
+                width: 153,
+                height: 24,
+                marginTop: 7,
+                flexShrink: 0,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
               <Text style={styles.txt_hangmoi}>Xem hàng mới về</Text>
-              <TouchableOpacity onPress={() => props.navigation.navigate('PlantPost')}>
-                <Image style={styles.ic_shopping} source={require('../../../image/ic_right.png')} />
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate('PlantPost')}>
+                <Image
+                  style={styles.ic_shopping}
+                  source={require('../../../image/ic_right.png')}
+                />
               </TouchableOpacity>
             </View>
           </View>
 
-          <Image style={styles.img_home} source={require('../../../image/img_home.png')} />
-
+          <Image
+            style={styles.img_home}
+            source={require('../../../image/img_home.png')}
+          />
         </View>
 
-        {
-          PlantaProduct()
-        }
-        {
-          PlantPost()
-        }
+        {PlantaProduct()}
+        {PlantPost()}
 
-        {
-          CareAccessories()
-        }
+        {CareAccessories()}
 
         <View style={styles.container_txt_category}>
-          <Text style={styles.txt_categories_caytrong}>Combo chăm sóc (mới)</Text>
+          <Text style={styles.txt_categories_caytrong}>
+            Combo chăm sóc (mới)
+          </Text>
         </View>
-        <View style={{ borderRadius: 8, paddingStart: 24, paddingEnd: 24 }}>
+        <View style={{borderRadius: 8, paddingStart: 24, paddingEnd: 24}}>
           <View style={styles.container_combo}>
             <View style={styles.container_combo_txt}>
               <Text style={styles.txt_combo}>Lemon Balm Grow Kit</Text>
-              <Text style={styles.txt_combo2}>Gồm: hạt giống Lemon Balm, gói đất hữu cơ, chậu Planta, marker đánh dấu...</Text>
+              <Text style={styles.txt_combo2}>
+                Gồm: hạt giống Lemon Balm, gói đất hữu cơ, chậu Planta, marker
+                đánh dấu...
+              </Text>
             </View>
-            <Image style={styles.img_grow_kit} source={require('../../../image/img_grow_kit.png')} />
+            <Image
+              style={styles.img_grow_kit}
+              source={require('../../../image/img_grow_kit.png')}
+            />
           </View>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
 
 const styles = StyleSheet.create({
   txt_combo2: {
@@ -340,7 +380,6 @@ const styles = StyleSheet.create({
     flexShrink: 0,
     borderBottomRightRadius: 8,
     borderTopRightRadius: 8,
-
   },
   container_combo: {
     display: 'flex',
@@ -379,8 +418,9 @@ const styles = StyleSheet.create({
     padding: 25,
   },
   img_home: {
-    width: '100%', height: 205, flexShrink: 0,
-
+    width: '100%',
+    height: 205,
+    flexShrink: 0,
   },
   txt_categories_caytrong: {
     color: '#221F1F',
@@ -415,14 +455,13 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     fontFamily: 'Lato',
     color: '#007537',
-
   },
 
   container_title_content: {
     flexDirection: 'column',
     gap: 4,
     display: 'flex',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
   },
   img: {
     height: 134,
@@ -457,7 +496,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: '500',
     lineHeight: 20,
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
   },
   ic_shopping: {
     width: 24,
@@ -494,101 +533,131 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-
   },
-})
+});
 
-var CATEGORIES = [{
-  "id": 1,
-  "name": "Robby"
-}, {
-  "id": 2,
-  "name": "Wanda"
-}, {
-  "id": 3,
-  "name": "Derrek"
-}, {
-  "id": 4,
-  "name": "Eleonora"
-}, {
-  "id": 5,
-  "name": "Issy"
-}, {
-  "id": 6,
-  "name": "Herrick"
-}, {
-  "id": 7,
-  "name": "Erhart"
-}, {
-  "id": 8,
-  "name": "Stavro"
-}, {
-  "id": 9,
-  "name": "Giacobo"
-}, {
-  "id": 10,
-  "name": "Jana"
-}, {
-  "id": 11,
-  "name": "Constantine"
-}, {
-  "id": 12,
-  "name": "Nikola"
-}, {
-  "id": 13,
-  "name": "Nolie"
-}, {
-  "id": 14,
-  "name": "Jarred"
-}, {
-  "id": 15,
-  "name": "Baxie"
-}, {
-  "id": 16,
-  "name": "Mike"
-}, {
-  "id": 17,
-  "name": "Sutherland"
-}, {
-  "id": 18,
-  "name": "Charmaine"
-}, {
-  "id": 19,
-  "name": "Bobbe"
-}, {
-  "id": 20,
-  "name": "Ferris"
-}, {
-  "id": 21,
-  "name": "Byrom"
-}, {
-  "id": 22,
-  "name": "Deeyn"
-}, {
-  "id": 23,
-  "name": "Nerita"
-}, {
-  "id": 24,
-  "name": "Sherry"
-}, {
-  "id": 25,
-  "name": "Chrisy"
-}, {
-  "id": 26,
-  "name": "Spencer"
-}, {
-  "id": 27,
-  "name": "Gwenette"
-}, {
-  "id": 28,
-  "name": "Morty"
-}, {
-  "id": 29,
-  "name": "Marie"
-}, {
-  "id": 30,
-  "name": "Udall"
-}, {
-  "id": 31,
-
-}]
+var CATEGORIES = [
+  {
+    id: 1,
+    name: 'Robby',
+  },
+  {
+    id: 2,
+    name: 'Wanda',
+  },
+  {
+    id: 3,
+    name: 'Derrek',
+  },
+  {
+    id: 4,
+    name: 'Eleonora',
+  },
+  {
+    id: 5,
+    name: 'Issy',
+  },
+  {
+    id: 6,
+    name: 'Herrick',
+  },
+  {
+    id: 7,
+    name: 'Erhart',
+  },
+  {
+    id: 8,
+    name: 'Stavro',
+  },
+  {
+    id: 9,
+    name: 'Giacobo',
+  },
+  {
+    id: 10,
+    name: 'Jana',
+  },
+  {
+    id: 11,
+    name: 'Constantine',
+  },
+  {
+    id: 12,
+    name: 'Nikola',
+  },
+  {
+    id: 13,
+    name: 'Nolie',
+  },
+  {
+    id: 14,
+    name: 'Jarred',
+  },
+  {
+    id: 15,
+    name: 'Baxie',
+  },
+  {
+    id: 16,
+    name: 'Mike',
+  },
+  {
+    id: 17,
+    name: 'Sutherland',
+  },
+  {
+    id: 18,
+    name: 'Charmaine',
+  },
+  {
+    id: 19,
+    name: 'Bobbe',
+  },
+  {
+    id: 20,
+    name: 'Ferris',
+  },
+  {
+    id: 21,
+    name: 'Byrom',
+  },
+  {
+    id: 22,
+    name: 'Deeyn',
+  },
+  {
+    id: 23,
+    name: 'Nerita',
+  },
+  {
+    id: 24,
+    name: 'Sherry',
+  },
+  {
+    id: 25,
+    name: 'Chrisy',
+  },
+  {
+    id: 26,
+    name: 'Spencer',
+  },
+  {
+    id: 27,
+    name: 'Gwenette',
+  },
+  {
+    id: 28,
+    name: 'Morty',
+  },
+  {
+    id: 29,
+    name: 'Marie',
+  },
+  {
+    id: 30,
+    name: 'Udall',
+  },
+  {
+    id: 31,
+  },
+];

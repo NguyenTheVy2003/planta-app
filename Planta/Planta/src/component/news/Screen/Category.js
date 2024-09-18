@@ -1,11 +1,20 @@
-import { Image, StyleSheet, Text, View, KeyboardAvoidingView, ScrollView, FlatList, Dimensions, TouchableOpacity, ActivityIndicator } from 'react-native'
-import React, { useState, useEffect } from 'react'
-import { getCategory, getNews } from '../NewHTTP';
+import React, {useEffect, useState} from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {getCategory, getNews} from '../NewHTTP';
 
-const Category = (props) => {
-
+const Category = props => {
   const [selectedId, setSelectedId] = useState(1);
-  const { navigation } = props;
+  const {navigation} = props;
   const [isLoading, setisLoading] = useState(false);
   const [news, setNews] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -29,9 +38,9 @@ const Category = (props) => {
         console.log(error);
         throw error;
       }
-    }
+    };
     fetchData();
-  }, [])
+  }, []);
 
   useEffect(() => {
     // lấy tin
@@ -45,42 +54,45 @@ const Category = (props) => {
         console.log(error);
         throw error;
       }
-    }
+    };
     fetchData();
-  }, [])
+  }, []);
 
-
-  const renderItem = ({ item }) => {
-    const { _id, name, price, quantity, description, image } = item;
+  const renderItem = ({item}) => {
+    const {_id, name, price, quantity, description, image} = item;
     return (
-
-      <View >
+      <View>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('ProductInfo', { productID: _id })
-          }}
-        >
+            navigation.navigate('ProductInfo', {productID: _id});
+          }}>
           <View style={styles.container_title}>
-            <Image style={styles.img} source={{ uri: image }} />
+            <Image style={styles.img} source={{uri: image}} />
             <View style={styles.container_title_content}>
-            <Text style={styles.txt_title_name}>{name}</Text>
+              <Text style={styles.txt_title_name}>{name}</Text>
               <Text style={styles.txt_title_description}>{description}</Text>
               <Text style={styles.txt_title_price}>{price}.000đ</Text>
             </View>
           </View>
         </TouchableOpacity>
       </View>
-    )
-  }
+    );
+  };
   return (
     <KeyboardAvoidingView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => props.navigation.navigate('Home')}>
-        <Image style={styles.ic_back} source={require('../../../image/ic_back.png')} />
+          <Image
+            style={styles.ic_back}
+            source={require('../../../image/ic_back.png')}
+          />
         </TouchableOpacity>
         <Text style={styles.txt_cayTrong}>CÂY TRỒNG</Text>
-        <TouchableOpacity  onPress={() => props.navigation.navigate('MyCart')}>
-        <Image style={styles.ic_back} source={require('../../../image/ic_shopping.png')} />
+        <TouchableOpacity onPress={() => props.navigation.navigate('MyCart')}>
+          <Image
+            style={styles.ic_back}
+            source={require('../../../image/ic_shopping.png')}
+          />
         </TouchableOpacity>
       </View>
       <View style={styles.container_category}>
@@ -90,51 +102,56 @@ const Category = (props) => {
             showsHorizontalScrollIndicator={false} // thanh cuộn
             showsVerticalScrollIndicator={false} // thanh cuộn
           >
-            {
-              categories.map((item, index) => {
-                return (
-                  <TouchableOpacity onPress={() => {
-                    setSelectedId(item._id)
+            {categories.map((item, index) => {
+              return (
+                <TouchableOpacity
+                  onPress={() => {
+                    setSelectedId(item._id);
                   }}
-                    style={styles.item} key={index}>
-                    <Text>{item.name}</Text>
-                    <View
-                      style={item._id.toString() == selectedId.toString() ?
-                        styles.underline : undefined}></View>
-                  </TouchableOpacity>
-                )
-              })
-            }
+                  style={styles.item}
+                  key={index}>
+                  <Text>{item.name}</Text>
+                  <View
+                    style={
+                      item._id.toString() == selectedId.toString()
+                        ? styles.underline
+                        : undefined
+                    }></View>
+                </TouchableOpacity>
+              );
+            })}
           </ScrollView>
         </View>
       </View>
-          {
-            isLoading == true ? (
-              <View style={styles.container_isloading}>
-                <ActivityIndicator size='large' color='#fff00' />
-                <Text>Loading...</Text>
-              </View>
-            ) : (<FlatList
-             
-              data={news}
-              numColumns={2} 
-              renderItem={renderItem}
-              keyExtractor={(item) => item._id}
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              columnWrapperStyle={{ justifyContent: 'center', display: 'flex',alignItems: 'flex-start', gap: 15, }} 
-            />
-            )}
-
-      
+      {isLoading == true ? (
+        <View style={styles.container_isloading}>
+          <ActivityIndicator size="large" color="#fff00" />
+          <Text>Loading...</Text>
+        </View>
+      ) : (
+        <FlatList
+          data={news}
+          numColumns={2}
+          renderItem={renderItem}
+          keyExtractor={item => item._id}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          columnWrapperStyle={{
+            justifyContent: 'center',
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: 15,
+          }}
+        />
+      )}
     </KeyboardAvoidingView>
-  )
-}
+  );
+};
 
-export default Category
+export default Category;
 
 const styles = StyleSheet.create({
-  txt_title_name:{
+  txt_title_name: {
     fontSize: 16,
     lineHeight: 24,
     fontStyle: 'normal',
@@ -159,14 +176,13 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     fontFamily: 'Lato',
     color: '#007537',
-
   },
 
   container_title_content: {
     flexDirection: 'column',
     gap: 4,
-    display :'flex',
-    alignItems: 'flex-start'
+    display: 'flex',
+    alignItems: 'flex-start',
   },
   img: {
     height: 134,
@@ -176,9 +192,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
     backgroundColor: '#F6F6F6',
-    display:'flex',
-    
-
+    display: 'flex',
   },
   container_title: {
     alignItems: 'flex-start',
@@ -218,19 +232,20 @@ const styles = StyleSheet.create({
     paddingTop: 3,
     paddingBottom: 3,
     alignItems: 'center',
-    display: 'flex', gap: 8,
+    display: 'flex',
+    gap: 8,
   },
   container_category: {
     display: 'flex',
-        paddingTop: 15,
-        paddingBottom: 15,
-        paddingStart: 24,
-        paddingEnd: 24,
-        alignItems: 'center',
-        backgroundColor: '#FFF',
-        flexDirection: 'column',
-        gap: 10,
-        justifyContent: 'center'
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingStart: 24,
+    paddingEnd: 24,
+    alignItems: 'center',
+    backgroundColor: '#FFF',
+    flexDirection: 'column',
+    gap: 10,
+    justifyContent: 'center',
   },
   txt_cayTrong: {
     color: '#221F1F',
@@ -240,7 +255,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: '500',
     lineHeight: 20,
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
   },
   ic_back: {
     width: 24,
@@ -268,101 +283,132 @@ const styles = StyleSheet.create({
   container_isloading: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
-})
+});
 
-var CATEGORIES = [{
-  "id": 1,
-  "name": "Robby"
-}, {
-  "id": 2,
-  "name": "Wanda"
-}, {
-  "id": 3,
-  "name": "Derrek"
-}, {
-  "id": 4,
-  "name": "Eleonora"
-}, {
-  "id": 5,
-  "name": "Issy"
-}, {
-  "id": 6,
-  "name": "Herrick"
-}, {
-  "id": 7,
-  "name": "Erhart"
-}, {
-  "id": 8,
-  "name": "Stavro"
-}, {
-  "id": 9,
-  "name": "Giacobo"
-}, {
-  "id": 10,
-  "name": "Jana"
-}, {
-  "id": 11,
-  "name": "Constantine"
-}, {
-  "id": 12,
-  "name": "Nikola"
-}, {
-  "id": 13,
-  "name": "Nolie"
-}, {
-  "id": 14,
-  "name": "Jarred"
-}, {
-  "id": 15,
-  "name": "Baxie"
-}, {
-  "id": 16,
-  "name": "Mike"
-}, {
-  "id": 17,
-  "name": "Sutherland"
-}, {
-  "id": 18,
-  "name": "Charmaine"
-}, {
-  "id": 19,
-  "name": "Bobbe"
-}, {
-  "id": 20,
-  "name": "Ferris"
-}, {
-  "id": 21,
-  "name": "Byrom"
-}, {
-  "id": 22,
-  "name": "Deeyn"
-}, {
-  "id": 23,
-  "name": "Nerita"
-}, {
-  "id": 24,
-  "name": "Sherry"
-}, {
-  "id": 25,
-  "name": "Chrisy"
-}, {
-  "id": 26,
-  "name": "Spencer"
-}, {
-  "id": 27,
-  "name": "Gwenette"
-}, {
-  "id": 28,
-  "name": "Morty"
-}, {
-  "id": 29,
-  "name": "Marie"
-}, {
-  "id": 30,
-  "name": "Udall"
-}, {
-  "id": 31,
-
-}]
+var CATEGORIES = [
+  {
+    id: 1,
+    name: 'Robby',
+  },
+  {
+    id: 2,
+    name: 'Wanda',
+  },
+  {
+    id: 3,
+    name: 'Derrek',
+  },
+  {
+    id: 4,
+    name: 'Eleonora',
+  },
+  {
+    id: 5,
+    name: 'Issy',
+  },
+  {
+    id: 6,
+    name: 'Herrick',
+  },
+  {
+    id: 7,
+    name: 'Erhart',
+  },
+  {
+    id: 8,
+    name: 'Stavro',
+  },
+  {
+    id: 9,
+    name: 'Giacobo',
+  },
+  {
+    id: 10,
+    name: 'Jana',
+  },
+  {
+    id: 11,
+    name: 'Constantine',
+  },
+  {
+    id: 12,
+    name: 'Nikola',
+  },
+  {
+    id: 13,
+    name: 'Nolie',
+  },
+  {
+    id: 14,
+    name: 'Jarred',
+  },
+  {
+    id: 15,
+    name: 'Baxie',
+  },
+  {
+    id: 16,
+    name: 'Mike',
+  },
+  {
+    id: 17,
+    name: 'Sutherland',
+  },
+  {
+    id: 18,
+    name: 'Charmaine',
+  },
+  {
+    id: 19,
+    name: 'Bobbe',
+  },
+  {
+    id: 20,
+    name: 'Ferris',
+  },
+  {
+    id: 21,
+    name: 'Byrom',
+  },
+  {
+    id: 22,
+    name: 'Deeyn',
+  },
+  {
+    id: 23,
+    name: 'Nerita',
+  },
+  {
+    id: 24,
+    name: 'Sherry',
+  },
+  {
+    id: 25,
+    name: 'Chrisy',
+  },
+  {
+    id: 26,
+    name: 'Spencer',
+  },
+  {
+    id: 27,
+    name: 'Gwenette',
+  },
+  {
+    id: 28,
+    name: 'Morty',
+  },
+  {
+    id: 29,
+    name: 'Marie',
+  },
+  {
+    id: 30,
+    name: 'Udall',
+  },
+  {
+    id: 31,
+  },
+];
